@@ -1,0 +1,14 @@
+<div [class.main]="true">
+    
+    <div class="windows">
+        <p class="bad_words"><span>BAD WORDS:</span>{{' '+ arrBadWord}}</p>        
+        <div class="put_text">
+            <input type="text" id="inputValue" (value)="clearInput()" [(ngModel)]="badWords">
+            <!-- <input type="text" id="inputValue" (value)="badWords"> -->
+            <button class="btnAdd" (click)="showBadWords(badWords)">Add</button>
+            <button class="btnReset"(click)="clearInput()">Reset</button>
+        </div>
+        <textarea  id="textarea" cols="30" rows="10" [(ngModel)]="text"></textarea>
+        <button class="btnCensor" (click)="addText()">Censor</button>
+    </div>
+</div>
