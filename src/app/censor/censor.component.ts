@@ -7,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CensorComponent implements OnInit {
   badWords:string;
-  // arrBadWord:string[];
   arrBadWord: Array<string>;
+  stringBadWord:string;
   showBadW: string;
-  // input:HTMLElement;
   value:string;
   text:string;
   arrText: Array<string>;
@@ -18,54 +17,69 @@ export class CensorComponent implements OnInit {
   arrCheckWord:Array<string>;
   arrCheckWordChange:Array<string>;
   arrCheckWordChangeStr:string;
+  placeholderText:string;
+  className:string;
+  classNameTextaria:string;
 
   constructor() { }
   
   ngOnInit(): void {
-    this.badWords=this.badWords,
+    this.badWords='',
     this.arrBadWord =[],
-    // this.input=document.querySelector('#inputValue'),
+    this.stringBadWord='',
     this.arrText=[],
-    this.arrCheckWordChange=[]
-    this.text=''
-    // this.value=''
+    this.arrCheckWordChange=[],
+    this.text='',
+    this.placeholderText='Bad word here',
+    this.className='inputValue',
+    this.classNameTextaria='textarea'
   };
   showBadWords(badWords):void{
+    if( badWords.length==0 ){
+      this.placeholderText='Put bad word'
+      this.className='emptyInputValue'
+    }
+    else{
     this.arrBadWord.push(badWords.toLowerCase())
-    // console.log(this.badWords)
-    // console.log(badWords)
-    // console.log(this.arrBadWord)
+    this.stringBadWord=this.arrBadWord.join(' ')
     this.badWords=''
+    this.placeholderText='Bad word here'
+    this.className='inputValue'
+    }
   };
   clearInput():string{
     this.badWords=''
-    // this.input.innerText=''
-    // console.log(this.input)
     return this.badWords
   };
   addText():void{
+    if( this.text.length==0 ){
+      // this.placeholderText='Put bad word'
+      this.classNameTextaria='empty_textarea'
+    }
+    else{
     this.arrText=this.text.toLowerCase().split(' ')
-    console.log(this.arrText)
+    this.classNameTextaria='textarea'
+    // console.log(this.arrText)
     this.arrText.forEach((key, index, arr)=>{
      this.checkWord= this.arrBadWord.indexOf(key)!==-1;
-    //  this.arrBadWord.indexOf(key)!==-1;
+    
       if(this.checkWord){
-        // console.log(arr[index].split(''))
+        
         this.arrCheckWord=arr[index].split('')
-        console.log(this.arrCheckWord.length)
+        // console.log(this.arrCheckWord.length)
         for(let i=0; i<this.arrCheckWord.length; i++){
-        //   console.log(this.arrCheckWord)
+       
         
         this.arrCheckWordChange.push('*')
         this.arrCheckWordChangeStr=this.arrCheckWordChange.join('')
         }
         this.arrText.splice(index,1,this.arrCheckWordChangeStr)
-        console.log(this.arrCheckWordChangeStr)
-        console.log(this.arrText)
+        // console.log(this.arrCheckWordChangeStr)
+        // console.log(this.arrText)
         this.arrCheckWordChange=[]
       }
       this.text=this.arrText.join(' ')
     })
   }
-
+  }
 }
